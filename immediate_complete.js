@@ -17,8 +17,10 @@ handler.getCompletionRegex = function() {
 };
 
 handler.complete = function(doc, fullAst, pos, currentNode, callback) {
-    // TODO
-    callback();
+    this.sender.emit("js_immediate_complete", this.immediateWindow);
+    this.sender.once("js_immediate_complete_results", function(e) {
+        callback(e.data);
+    });
 };
 
 

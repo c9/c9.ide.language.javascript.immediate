@@ -15,6 +15,19 @@ define(function(require, exports, module) {
         language.registerLanguageHandler('plugins/c9.ide.language.javascript.immediate/immediate_complete');
         language.registerLanguageHandler('plugins/c9.ide.language.javascript.immediate/immediate_complete_static');
         
+        language.on("initWorker", function(e) {
+            var worker = e.worker;
+            worker.on("js_immediate_complete", function(e) {
+                onImmediateComplete(e.immediateWindow, function(results) {
+                    worker.emit("js_immediate_complete_results", { data: results });
+                });
+            });
+        });
+        
         register(null, {});
+    }
+    
+    function onImmediateComplete(immediateWindow, callback) {
+        callback([]);
     }
 });
