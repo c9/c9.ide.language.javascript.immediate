@@ -11,7 +11,7 @@ handler.handlesLanguage = function(language) {
     return language === "javascript";
 };
 
-handler.handlesImmediate = function() {
+handler.handlesEditor = function() {
     return this.HANDLES_IMMEDIATE;
 };
 
