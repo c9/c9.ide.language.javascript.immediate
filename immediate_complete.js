@@ -49,7 +49,7 @@ function isSafe(node) {
 
 function getExpression(doc, pos) {
     if (pos.sl === pos.el) {
-        return doc.getLine(pos.sl).substring(doc.sc, doc.ec);
+        return doc.getLine(pos.sl).substring(pos.sc, pos.ec);
     }
     var result = doc.getLine(pos.sl).substr(pos.sc);
     for (var i = pos.sl + 1; i < pos.el; i++) {

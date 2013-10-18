@@ -47,10 +47,9 @@ define(function(require, exports, module) {
             
             var ace = tab.editor.ace;
             var evaluator = ace.getSession().repl.evaluator;
-            var doc = ace.getSession().getDocument().getValue();
             
             var results;
-            var propMatch = doc.match(/(.*)\.([A-Za-z0-9*$_]*)$/);
+            var propMatch = expr.match(/(.*)\.([A-Za-z0-9*$_]*)$/);
             var context;
             var id;
             if (propMatch) {
@@ -59,7 +58,7 @@ define(function(require, exports, module) {
             }
             else {
                 context = "window";
-                id = doc.match(/[A-Za-z0-9*$_]*$/)[0] || "";
+                id = expr.match(/[A-Za-z0-9*$_]*$/)[0] || "";
             }
             results = evaluator.evaluateHeadless(
                 "(" + GET_ALL_PROPERTIES + ")(" + context + ")"
