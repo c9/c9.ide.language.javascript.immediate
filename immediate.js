@@ -63,8 +63,8 @@ define(function(require, exports, module) {
             results = evaluator.evaluateHeadless(
                 "(" + GET_ALL_PROPERTIES + ")(" + context + ")"
             );
-            if (!results.length) // error
-                callback();
+            if (!results || !results.length) // error
+                return callback();
             
             results = results.slice(); // make into real array
             results = completeUtil.findCompletions(id, results);
