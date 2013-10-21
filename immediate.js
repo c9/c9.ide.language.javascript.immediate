@@ -14,20 +14,6 @@ define(function(require, exports, module) {
         var tabs = imports.tabManager;
         var completeUtil = require("plugins/c9.ide.language/complete_util");
     
-        var GET_ALL_PROPERTIES = function getAllProperties(obj) {
-            if (obj == null)
-                return [];
-            var results = [];
-            do {
-                var props = Object.getOwnPropertyNames(obj);
-                props.forEach(function(prop){
-                    if (results.indexOf(prop) === -1)
-                        results.push(prop);
-                });
-            } while (obj = Object.getPrototypeOf(obj));
-            return results;
-        }.toString();
-
         language.registerLanguageHandler('plugins/c9.ide.language.javascript.immediate/immediate_complete');
         language.registerLanguageHandler('plugins/c9.ide.language.javascript.immediate/immediate_complete_static');
         
@@ -48,7 +34,6 @@ define(function(require, exports, module) {
             var ace = tab.editor.ace;
             var evaluator = ace.getSession().repl.evaluator;
             
-            var results;
             var propMatch = expr.match(/(.*)\.([A-Za-z0-9*$_]*)$/);
             var context;
             var id;
@@ -60,23 +45,23 @@ define(function(require, exports, module) {
                 context = "window";
                 id = expr.match(/[A-Za-z0-9*$_]*$/)[0] || "";
             }
-            results = evaluator.evaluateHeadless(
-                "(" + GET_ALL_PROPERTIES + ")(" + context + ")"
-            );
-            if (!results || !results.length) // error
-                return callback();
             
-            results = results.slice(); // make into real array
-            results = completeUtil.findCompletions(id, results);
-            callback(results.map(function(m) {
-                return {
-                  name        : m,
-                  replaceText : m,
-                  icon        : "property",
-                  meta        : "",
-                  priority    : m.match(/^_/) ? 1 : 2
-                };
-            }));
+            evaluator.getAllProperties(context, function(err, results){
+                if (err || !results || !results.length) // error
+                    return callback();
+                
+                results = results.slice(); // make into real array
+                results = completeUtil.findCompletions(id, results);
+                callback(results.map(function(m) {
+                    return {
+                      name        : m,
+                      replaceText : m,
+                      icon        : "property",
+                      meta        : "",
+                      priority    : m.match(/^_/) ? 1 : 2
+                    };
+                }));
+            });
         }
         
         register(null, {});
