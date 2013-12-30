@@ -42,7 +42,7 @@ define(function(require, exports, module) {
                 id = propMatch[2];
             }
             else {
-                context = "window";
+                context = "global";
                 id = expr.match(/[A-Za-z0-9*$_]*$/)[0] || "";
             }
             
