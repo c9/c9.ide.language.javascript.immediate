@@ -33,6 +33,7 @@ define(function(require, exports, module) {
             
             var ace = tab.editor.ace;
             var evaluator = ace.getSession().repl.evaluator;
+            var isNodeJS = tab.editor.getActiveEvaluator() === "debugger";
             
             var propMatch = expr.match(/(.*)\.([A-Za-z0-9*$_]*)$/);
             var context;
@@ -42,7 +43,7 @@ define(function(require, exports, module) {
                 id = propMatch[2];
             }
             else {
-                context = "global";
+                context = isNodeJS ? "global" : "window";
                 id = expr.match(/[A-Za-z0-9*$_]*$/)[0] || "";
             }
             
