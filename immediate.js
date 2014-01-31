@@ -43,7 +43,7 @@ define(function(require, exports, module) {
                 id = propMatch[2];
             }
             else {
-                context = isNodeJS ? "global" : "window";
+                context = isNodeJS ? -1 : "window";
                 id = expr.match(/[A-Za-z0-9*$_]*$/)[0] || "";
             }
             
