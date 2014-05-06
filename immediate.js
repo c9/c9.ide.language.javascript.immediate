@@ -47,7 +47,7 @@ define(function(require, exports, module) {
                 id = expr.match(/[A-Za-z0-9*$_]*$/)[0] || "";
             }
             
-            evaluator.getAllProperties(context, function(err, results){
+            evaluator.getAllProperties(context, function(err, results) {
                 if (err || !results || !results.length) // error
                     return callback();
                 
@@ -55,11 +55,11 @@ define(function(require, exports, module) {
                 results = completeUtil.findCompletions(id, results);
                 callback(results.map(function(m) {
                     return {
-                      name        : m,
-                      replaceText : m,
-                      icon        : "property",
-                      meta        : "",
-                      priority    : m.match(/^_/) ? 1 : 2
+                      name: m,
+                      replaceText: m,
+                      icon: "property",
+                      meta: "",
+                      priority: m.match(/^_/) ? 1 : 2
                     };
                 }));
             });
