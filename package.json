@@ -9,14 +9,12 @@
         "url": "http://github.com/c9/c9.ide.language.javascript.immediate.git"
     },
     "plugins": {
-        "plugin": {
-            "immediate": {}
-        }
+        "immediate": {}
     },
     "categories": [
         "core"
     ],
     "licenses": [
-        ""
+        "AGPL"
     ]
 }
