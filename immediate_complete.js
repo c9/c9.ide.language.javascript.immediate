@@ -13,7 +13,8 @@ handler.handlesEditor = function() {
 };
 
 var requestId = 0;
-handler.complete = function(doc, fullAst, pos, currentNode, callback) {
+handler.complete = function(doc, fullAst, pos, options, callback) {
+    var currentNode = options.node;
     if (!currentNode || !currentNode.getPos())
         return callback();
     

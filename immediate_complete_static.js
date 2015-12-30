@@ -15,12 +15,12 @@ handler.handlesEditor = function() {
     return this.HANDLES_IMMEDIATE;
 };
 
-handler.complete = function(doc, fullAst, pos, currentNode, callback) {
+handler.complete = function(doc, fullAst, pos, options, callback) {
     // Redirect to scope_analyzer (who normally only handles editors,
     // but also does much more than just completion)
-    return scopeAnalyzer.complete(doc, fullAst, pos, currentNode, function(results) {
+    return scopeAnalyzer.complete(doc, fullAst, pos, options, function(results) {
         var allResults = results || [];
-        inferCompleter.complete(doc, fullAst, pos, currentNode, function(results) {
+        inferCompleter.complete(doc, fullAst, pos, options, function(results) {
             callback(allResults.concat(results || []));
         });
     });
