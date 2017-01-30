@@ -20,7 +20,7 @@ define(function(require, exports, module) {
             var worker = e.worker;
             worker.on("js_immediate_complete", function(e) {
                 onImmediateComplete(e.data.immediateWindow, e.data.expr, function(results) {
-                    worker.emit("js_immediate_complete_results", { data: { results: results, id: e.data.id } });
+                    worker.emit("js_immediate_complete_results", { data: { results: results, id: e.data.id }});
                 });
             });
         });
